@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Ken Teo — Resume</title>
+<meta name="description" content="Ken Teo — Senior developer (PHP/Laravel, TypeScript) in the Kuala Lumpur &amp; Petaling Jaya area, Malaysia.">
+<style>
+  @layer reset, tokens, base, layout, components, motion, print;
+
+  @layer reset {
+    *, *::before, *::after { box-sizing: border-box; }
+    * { margin: 0; padding: 0; }
+    ul { list-style: none; }
+    button { font: inherit; color: inherit; }
+  }
+
+  @layer tokens {
+    @property --rule { syntax: "<length>"; inherits: false; initial-value: 0px; }
+
+    :root {
+      color-scheme: light dark;
+
+      --paper:  light-dark(oklch(96.5% 0.012 85), oklch(17% 0.008 60));
+      --ink:    light-dark(oklch(18% 0.01 60),    oklch(93% 0.012 85));
+      --dim:    light-dark(oklch(45% 0.012 70),   oklch(68% 0.012 80));
+      --rule-c: light-dark(oklch(18% 0.01 60 / .85), oklch(93% 0.012 85 / .8));
+      --hair:   light-dark(oklch(18% 0.01 60 / .16), oklch(93% 0.012 85 / .16));
+      --accent: light-dark(oklch(58% 0.19 35),    oklch(72% 0.17 45));
+
+      --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+      --sans:  ui-sans-serif, "Helvetica Neue", Helvetica, Arial, sans-serif;
+      --mono:  ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+      --measure: 68ch;
+      --pad: clamp(1.25rem, 5vw, 4rem);
+    }
+    :root[data-theme="light"] { color-scheme: light; }
+    :root[data-theme="dark"]  { color-scheme: dark; }
+  }
+
+  @layer base {
+    html { -webkit-text-size-adjust: 100%; }
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font: 400 clamp(1rem, .95rem + .25vw, 1.125rem)/1.6 var(--sans);
+      -webkit-font-smoothing: antialiased;
+      font-kerning: normal;
+    }
+    h1, h2, h3 { font-family: var(--serif); font-weight: 400; text-wrap: balance; }
+    p, li { text-wrap: pretty; }
+    ::selection { background: var(--accent); color: var(--paper); }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      background: linear-gradient(var(--accent), var(--accent)) 0 100% / 100% 1px no-repeat;
+      transition: background-size .25s ease, color .25s ease;
+      &:hover { background-size: 100% 100%; color: var(--paper); }
+    }
+  }
+
+  @layer layout {
+    .sheet {
+      inline-size: min(100%, 76rem);
+      margin-inline: auto;
+      padding: var(--pad);
+      display: grid;
+      /* label column + content column; rows inherit via subgrid */
+      grid-template-columns: [full-start] minmax(0, 1fr) [full-end];
+      @media (min-width: 56rem) {
+        grid-template-columns: [full-start] 12rem [content-start] minmax(0, 1fr) [full-end];
+        column-gap: 3rem;
+      }
+    }
+    .row {
+      grid-column: full;
+      display: grid;
+      grid-template-columns: subgrid;
+      padding-block: clamp(1.5rem, 3vw, 2.25rem);
+      border-block-start: 1px solid var(--hair);
+      row-gap: .75rem;
+      > h2 { grid-column: 1; }
+      > :not(h2) { grid-column: -2 / -1; @media (min-width: 56rem) { grid-column: content; } }
+    }
+  }
+
+  @layer components {
+    /* top bar */
+    .bar {
+      grid-column: full;
+      display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+      font: 500 .78rem/1.2 var(--mono);
+      text-transform: uppercase; letter-spacing: .08em;
+      color: var(--dim);
+      padding-block-end: clamp(2rem, 8vw, 6rem);
+    }
+
+    /* masthead */
+    .masthead {
+      grid-column: full;
+      padding-block-end: clamp(2rem, 5vw, 3.5rem);
+      h1 {
+        font-size: clamp(3.25rem, 2rem + 9vw, 9rem);
+        line-height: .92;
+        letter-spacing: -.035em;
+      }
+      .role {
+        margin-block-start: 1.25rem;
+        font: italic 400 clamp(1.25rem, 1rem + 1.2vw, 1.9rem)/1.25 var(--serif);
+        color: var(--dim);
+      }
+    }
+
+    h2.label {
+      font: 500 .78rem/1.5 var(--mono);
+      text-transform: uppercase; letter-spacing: .08em;
+      color: var(--dim);
+      padding-block-start: .3rem;
+      &::before { content: "§ "; color: var(--accent); }
+      @media (min-width: 56rem) { position: sticky; top: 1.25rem; align-self: start; }
+    }
+
+    .lede {
+      font: 400 clamp(1.3rem, 1.05rem + 1.1vw, 1.9rem)/1.35 var(--serif);
+      max-inline-size: var(--measure);
+    }
+
+    /* contact */
+    .contact {
+      display: grid; gap: .25rem;
+      li {
+        display: grid; grid-template-columns: 6rem 1fr; align-items: baseline;
+        padding-block: .45rem;
+        border-block-end: 1px solid var(--hair);
+      }
+      .k { font: 500 .78rem/1 var(--mono); text-transform: uppercase; letter-spacing: .08em; color: var(--dim); }
+      a { justify-self: start; font-family: var(--serif); font-size: 1.25rem; }
+    }
+
+    /* skills: plain definition list, no chips */
+    .skills {
+      display: grid; gap: 0;
+      > div {
+        display: grid; gap: .15rem 2rem;
+        padding-block: .7rem;
+        border-block-end: 1px solid var(--hair);
+        @media (min-width: 40rem) { grid-template-columns: 11rem 1fr; }
+        &:first-child { padding-block-start: 0; }
+      }
+      dt { font: 500 .78rem/1.8 var(--mono); text-transform: uppercase; letter-spacing: .08em; color: var(--dim); }
+      dd { max-inline-size: var(--measure); }
+    }
+
+    /* entries (experience / projects / education) */
+    .entry {
+      container-type: inline-size;
+      display: grid; gap: .1rem 2rem;
+      padding-block: 1rem;
+      border-block-end: 1px solid var(--hair);
+      &:first-of-type { padding-block-start: 0; }
+      &:last-of-type  { border-block-end: 0; padding-block-end: 0; }
+
+      h3 { font-size: clamp(1.25rem, 1.1rem + .6vw, 1.6rem); line-height: 1.2; }
+      .meta { font: 500 .78rem/1.8 var(--mono); text-transform: uppercase; letter-spacing: .06em; color: var(--dim); }
+      p.desc, ul { max-inline-size: var(--measure); margin-block-start: .4rem; }
+      ul li { padding-inline-start: 1.25rem; position: relative; }
+      ul li::before { content: "—"; position: absolute; inset-inline-start: 0; color: var(--accent); }
+
+      @container (min-width: 36rem) {
+        grid-template-columns: 1fr auto;
+        .meta { grid-column: 2; grid-row: 1; text-align: end; }
+        h3 { grid-column: 1; }
+        p.desc, ul { grid-column: 1 / -1; }
+      }
+    }
+    .tag {
+      font: 500 .7rem/1 var(--mono); letter-spacing: .06em; text-transform: uppercase;
+      border: 1px solid var(--hair); padding: .2rem .4rem; vertical-align: .2em; margin-inline-start: .4rem;
+      color: var(--dim);
+    }
+
+    /* buttons */
+    .print {
+      font: 500 .78rem/1 var(--mono); text-transform: uppercase; letter-spacing: .08em;
+      background: none; border: 0; cursor: pointer; padding: 0; color: inherit;
+      border-block-end: 1px solid var(--accent);
+      &:hover { color: var(--accent); }
+    }
+
+    footer {
+      grid-column: full;
+      display: flex; justify-content: space-between; flex-wrap: wrap; gap: .5rem;
+      padding-block-start: 1.5rem;
+      border-block-start: 1px solid var(--rule-c);
+      font: 500 .78rem/1.4 var(--mono); text-transform: uppercase; letter-spacing: .08em; color: var(--dim);
+    }
+  }
+
+  @layer motion {
+    /* hairline reading-progress rule, scroll-driven, no JS */
+    @media (prefers-reduced-motion: no-preference) {
+      @supports (animation-timeline: scroll()) {
+        body::before {
+          content: ""; position: fixed; inset: 0 0 auto 0; block-size: 2px; z-index: 10;
+          background: var(--accent);
+          transform-origin: 0 50%;
+          animation: grow linear both;
+          animation-timeline: scroll(root);
+        }
+        @keyframes grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+      }
+      .masthead h1 {
+        transition: opacity .8s ease, translate .8s cubic-bezier(.2,.7,.2,1);
+        @starting-style { opacity: 0; translate: 0 .6em; }
+      }
+      html { scroll-behavior: smooth; }
+    }
+  }
+
+  @layer print {
+    @media print {
+      :root { color-scheme: light; --paper: #fff; --ink: #000; --dim: #444; }
+      .sheet { padding: 0; inline-size: 100%; grid-template-columns: 8rem minmax(0,1fr); column-gap: 1.5rem; }
+      .bar, .print, body::before { display: none; }
+      .masthead h1 { font-size: 3rem; }
+      .row, .entry { break-inside: avoid; padding-block: .8rem; }
+      a { background: none; color: inherit; }
+    }
+  }
+</style>
+</head>
+<body>
+<main class="sheet">
+
+  <div class="bar">
+    <span>Résumé · 2026</span>
+    <span>Kuala Lumpur &amp; Petaling Jaya, MY</span>
+    <button class="print" type="button" onclick="window.print()">Save as PDF</button>
+  </div>
+
+  <header class="masthead">
+    <h1>Ken Teo</h1>
+    <p class="role">Senior developer — PHP / Laravel &amp; TypeScript. Father &amp; coder.</p>
+  </header>
+
+  <section class="row" aria-labelledby="about">
+    <h2 class="label" id="about">About</h2>
+    <p class="lede">
+      Fourteen years building and shipping PHP/Laravel applications, payment and messaging
+      integrations, and TypeScript front-ends. I publish small Laravel packages in the open
+      and work comfortably with Docker, e-commerce platforms and LLM tooling.
+    </p>
+  </section>
+
+  <section class="row" aria-labelledby="contact">
+    <h2 class="label" id="contact">Contact</h2>
+    <ul class="contact">
+      <li><span class="k">GitHub</span><a href="https://github.com/shiroamada" rel="me">github.com/shiroamada</a></li>
+      <li><span class="k">X</span><a href="https://x.com/chaihoung" rel="me">x.com/chaihoung</a></li>
+    </ul>
+  </section>
+
+  <section class="row" aria-labelledby="experience">
+    <h2 class="label" id="experience">Experience</h2>
+    <article class="entry">
+      <h3>Senior Developer, Treeswift Web Studio</h3>
+      <span class="meta">2012 – Present</span>
+      <ul>
+        <li>Laravel back-ends and TypeScript front-ends for business web applications.</li>
+        <li>Local payment gateway and SMS / WhatsApp provider integrations.</li>
+        <li>Reusable integrations released as open-source Composer packages.</li>
+      </ul>
+    </article>
+  </section>
+
+  <section class="row" aria-labelledby="work">
+    <h2 class="label" id="work">Open source</h2>
+    <div>
+      <article class="entry">
+        <h3><a href="https://github.com/shiroamada/gosms">gosms</a></h3>
+        <span class="meta">PHP · Laravel</span>
+        <p class="desc">GoSMS (Malaysia) notification channel for Laravel 5.3+.</p>
+      </article>
+      <article class="entry">
+        <h3>SMS &amp; WhatsApp channels</h3>
+        <span class="meta">PHP · Laravel</span>
+        <ul>
+          <li><a href="https://github.com/shiroamada/ultrasms-laravel-notification">ultrasms-laravel-notification</a></li>
+          <li><a href="https://github.com/shiroamada/waha-laravel-notification">waha-laravel-notification</a></li>
+          <li><a href="https://github.com/shiroamada/green-api-laravel-notification">green-api-laravel-notification</a></li>
+        </ul>
+      </article>
+      <article class="entry">
+        <h3><a href="https://github.com/shiroamada/adb-command-deck">adb-command-deck</a></h3>
+        <span class="meta">TypeScript</span>
+        <p class="desc">Android Debug Bridge command manager. Save and run ADB commands from a GUI.</p>
+      </article>
+      <article class="entry">
+        <h3><a href="https://github.com/shiroamada/staff-temperature-check-in">staff-temperature-check-in</a></h3>
+        <span class="meta">PHP · Laravel</span>
+        <p class="desc">Built during Malaysia's MCO period to record staff temperature check-ins.</p>
+      </article>
+      <article class="entry">
+        <h3><a href="https://github.com/shiroamada/ipay88">ipay88</a><span class="tag">fork</span></h3>
+        <span class="meta">PHP · Payments</span>
+        <p class="desc">Maintained fork of the iPay88 PHP payment package.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="row" aria-labelledby="skills">
+    <h2 class="label" id="skills">Skills</h2>
+    <dl class="skills">
+      <div><dt>Back-end</dt><dd>PHP, Laravel, Livewire, Backpack, CodeIgniter, OpenCart, REST, JWT</dd></div>
+      <div><dt>Front-end</dt><dd>TypeScript, JavaScript, HTML, CSS, Bootstrap, Gatsby</dd></div>
+      <div><dt>Ops</dt><dd>Docker, Git, Nginx, Apache, MySQL</dd></div>
+      <div><dt>Integrations</dt><dd>iPay88, GoSMS, WAHA (WhatsApp), Green API, UltraSMS, Pinecone / RAG</dd></div>
+      <div><dt>Also</dt><dd>Go, Python (basic), Microsoft MakeCode</dd></div>
+    </dl>
+  </section>
+
+  <section class="row" aria-labelledby="education">
+    <h2 class="label" id="education">Education</h2>
+    <div>
+      <article class="entry">
+        <h3>MSc, Security Technologies and Applications</h3>
+        <span class="meta">2008</span>
+        <p class="desc">University of Surrey, United Kingdom</p>
+      </article>
+      <article class="entry">
+        <h3>BSc (Hons) Computing, Internet Technology</h3>
+        <span class="meta">2007</span>
+        <p class="desc">Asia Pacific Institute of Information Technology (APIIT) / Staffordshire University, Malaysia</p>
+      </article>
+    </div>
+  </section>
+
+  <footer>
+    <span>Ken Teo</span>
+    <span><a href="https://github.com/shiroamada">GitHub</a> · <a href="https://x.com/chaihoung">X</a></span>
+  </footer>
+</main>
+</body>
+</html>
